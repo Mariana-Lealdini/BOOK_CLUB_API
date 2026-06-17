@@ -2,7 +2,7 @@
 
 Este projeto tem como objetivo o gerenciamento do histórico de leituras do **The Book Lovers Club** (Clube do Livro Feminino).
 Permite cadastrar, buscar, filtrar e remover livros, registrar avaliações com
-estrelas por membro, e exibir estatísticas de leitura do clube.
+estrelas por membro, e exibir estatísticas de leitura e avaliações feitas pelos membros do clube.
 
 ---
 
