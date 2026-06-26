@@ -22,6 +22,7 @@ class RatingViewSchema(BaseModel):
     id: int = 1
     book_id: int = 1
     book_title: str = "O Senhor dos Anéis"
+    book_author: str = "J.R.R. Tolkien"
     member_id: int = 1
     member_name: str = "Maria"
     stars: int = 5
@@ -38,6 +39,7 @@ def apresenta_rating(rating: Rating, book: Book, member: Member):
         "id": rating.id,
         "book_id": rating.book_id,
         "book_title": book.title,
+        "book_author": book.author,
         "member_id": rating.member_id,
         "member_name": member.name,
         "stars": rating.stars,
@@ -54,6 +56,7 @@ def apresenta_ratings(ratings: List[Rating]):
             "id": r.id,
             "book_id": r.book_id,
             "book_title": r.book.title,
+            "book_author": r.book.author,
             "member_id": r.member_id,
             "member_name": r.member.name,
             "stars": r.stars,

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy import Column, String, Integer, DateTime, UniqueConstraint
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from typing import Union
@@ -9,7 +9,7 @@ class Book(Base):
     __tablename__ = "books"
 
     id = Column("pk_book", Integer, primary_key=True, autoincrement=True)
-    title = Column(String(150), nullable=False, unique=True)
+    title = Column(String(150), nullable=False)
     author = Column(String(150), nullable=False)
     genre = Column(String(100), nullable=False)
     read_date = Column(DateTime, nullable=False)
@@ -17,6 +17,12 @@ class Book(Base):
     created_at = Column(DateTime, default=datetime.now())
 
     ratings = relationship("Rating", back_populates="book", cascade="all, delete-orphan")
+
+    # Dois livros não podem ter o mesmo título E o mesmo autor.
+    # Livros homônimos de autores diferentes são permitidos.
+    __table_args__ = (
+        UniqueConstraint("title", "author", name="uq_book_title_author"),
+    )
 
     def __init__(self, title: str, author: str, genre: str,
                  read_date: Union[DateTime, None] = None,

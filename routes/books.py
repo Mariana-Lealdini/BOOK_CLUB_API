@@ -92,27 +92,31 @@ def add_book(body: BookSchema):
 
 @books_bp.delete("/book", responses={"200": BookDelSchema, "404": ErrorSchema})
 def delete_book(query: BookDeleteSchema):
-    """Deleta um livro a partir do título informado
+    """Deleta um livro a partir do título e autor informados
 
     Retorna uma mensagem de confirmação da remoção.
     """
     title = unquote(unquote(query.title))
-    logger.debug(f"Deletando livro: '{title}'")
+    author = unquote(unquote(query.author))
+    logger.debug(f"Deletando livro: '{title}' de '{author}'")
     session = Session()
 
-    book = session.query(Book).filter(Book.title == title).first()
+    book = session.query(Book).filter(
+        Book.title == title,
+        Book.author == author
+    ).first()
 
     if not book:
         session.close()
         error_msg = "Livro não encontrado na base :/"
-        logger.warning(f"Erro ao deletar livro '{title}': {error_msg}")
+        logger.warning(f"Erro ao deletar livro '{title}' de '{author}': {error_msg}")
         return {"message": error_msg}, 404
 
     session.delete(book)
     session.commit()
     session.close()
 
-    logger.debug(f"Livro deletado: '{title}'")
+    logger.debug(f"Livro deletado: '{title}' de '{author}'")
     return {"message": "Livro removido", "title": title}, 200
 
 

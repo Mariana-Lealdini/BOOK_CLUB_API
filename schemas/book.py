@@ -4,8 +4,9 @@ from model.books import Book
 from datetime import datetime
 
 class BookDeleteSchema(BaseModel):
-    """Define como deve ser a estrutura para deletar um livro, feita pelo título"""
+    """Define como deve ser a estrutura para deletar um livro, feita pelo título e autor"""
     title: str = "O Senhor dos Anéis"
+    author: str = "J.R.R. Tolkien"
 
 class BookSchema(BaseModel):
     """Define como um novo livro a ser inserido deve ser representado"""
